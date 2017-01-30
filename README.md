@@ -66,8 +66,14 @@ I did not use validation, the used metric was to choose the final model is if th
 
 
 ## 6. Model Testing
+The performance of the model on the track 1 (which the original data was collected), The model is able to drive the car around track 1 ( tested with throttle speed 0.2)
+
+For track 2 I had to increase the throttle to 0.27 at least to be able to climb up the slope of the track, model passed the first 6 turns until the very tight right turn so I think the model needs to be more general to work on the second track.
+
 
 ## 7. Conclusion
+The NN model was able to learn by cloning human behaviour to drive on same track it has been trained on, and also has a good degree of generalization to pass part of a new track. Though the model only controls the steering angle, I strongly believe it is not enough and it has to also control the throttle and the brake.
+
 
 ## 8. Resources
 
