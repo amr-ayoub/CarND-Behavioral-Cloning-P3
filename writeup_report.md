@@ -33,7 +33,7 @@ Provided data samples are 3 images(center, left and right camera) for every stee
 
 ## Data Augmentation and Processing
 
-Data processing done into a generator (keras fit_generator) to allow real time processing of the data generating thousands of them while not loadeding all of them into memory. Inside the generation function i tried to reduce the number of samples with zero angle.
+Data processing done into a generator (keras fit_generator) to allow real time processing of the data generating thousands of them while not loading all of them into memory. Inside the generation function I avoided the samples with zero angle.
 
 ### Data augmentation techniques used:
 [Data visualization is available in the notebook data-exploration.ipynb]().
@@ -42,7 +42,7 @@ Data processing done into a generator (keras fit_generator) to allow real time p
 Choosing randomly an image, flipping it and changing the sign of the predicted angle to simulate driving in the opposite direction.
 
 ### 2- Brightness augmentation
-To help training the model to different day and night driving with different bightness parts of the track, I added images with different brightness by converting them first to HSV, randomly scaling up/down the V channel then convert them back to RGB.
+To help training the model to different day and night driving with different bightness parts of the track, I added images with different brightness by converting them first to HSV, randomly scaling up/down the V channel.
 
 ### 3- Horizontal and vertical shifts
 To compensate for the translation in the steering angles and being in different horizontal positions on the track, the generator randomly chooses image, do a horizontal shift then adds an offset to the steering angle corresponding to that.
@@ -50,14 +50,14 @@ To compensate for the translation in the steering angles and being in different 
 Also vertical shift done to simulate driving up or down the slope of the track.
 
 ### 4- Using left and right camera images
-Choosing randomly left and right images, adding a small angle .25 to the left camera and subtract a small angle of 0.25 from the right camera. That will help to teach he model to correct the car to move from the left and right to the center of the track.
+Choosing randomly left and right images, adding a small angle .3 to the left camera and subtract a small angle of 0.25 from the right camera. That will help to teach he model to correct the car to move from the left and right to the center of the track.
 
 ###  Preprocessing
-Cropped sample images to not feed unused features to the model like the horizon and the car’s hood, then resize then to 64x64 pixels square image.
+Cropped sample images to not feed unused features to the model like the horizon and the car’s hood, then resize then to 64x64 pixels square image. Input image was split to HSV planes before been passed to the network.
 
 
 ## Model
-Model architecture is built on NVIDIA’s model implemented in keras with Tensorflow backend. The model consists of 9 layers: a normalization layer, 5 convolutional layers and 3 fully connected layers. Converse to the Nvidia model, input image was 64x64 pixels square image. Aggressive dropout 0.5 has been added after every layer to avoid overfitting and make the model general enough with driving rules. An Adam optimizer was used for optimization and ELU for activation functions.
+Model architecture is built on NVIDIA’s model implemented in keras with Tensorflow backend. The model consists of 9 layers: a normalization layer, 5 convolutional layers and 3 fully connected layers. Converse to the Nvidia model, input image was 64x64 pixels square image (HSV planes). Dropout 0.5 has been added after every layer to avoid overfitting and make the model general enough with driving rules. An Adam optimizer was used for optimization and ELU for activation functions.
 
 ![alt text](nvidia.png)
 
@@ -66,15 +66,15 @@ Model architecture is built on NVIDIA’s model implemented in keras with Tensor
 ## Model Training
 
 The model trained using a keras generator that takes random images from the Udacity provided data set, do the different data processing, augmentation and cropping then returns a specified number of training image and steering angles.
-Batch size of 256 has been chosen with training the model for 10 epochs. In each epoch, we generated 20224 images.
+Batch size of 128 has been chosen with training the model for 10 epochs. In each epoch, we generated 100K images.
 I did not use validation, the used metric was to choose the final model is if the car can drive the whole track 1 smoothly without any problems.
 
 
 
 ## Model Testing
-The performance of the model on the track 1 (which the original data was collected), The model is able to drive the car around track 1 ( tested with throttle speed 0.2)
+The performance of the model on the track 1 (which the original data was collected), The model is able to drive the car around track 1 ( tested with throttle speed 0.27)
 
-For track 2 I had to increase the throttle to 0.27 at least to be able to climb up the slope of the track, model passed the first 6 turns until the very tight right turn so I think the model needs to be more general to work on the second track.
+For track 2, model passed the first 9 turns until the very tight right turn so I think the model needs to be more general to work on the second track.
 
 
 ## Conclusion
