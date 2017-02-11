@@ -23,7 +23,7 @@ Project 3 of Udacity’s self-driving car Nano-degree is to mimic the human driv
 
 ## Data Recording
 
-I used the data provided by Udacity for track 1, [Data visualization is available in the notebook data-exploration.ipynb]().
+I used the data provided by Udacity for track 1, [Data visualization is available in the notebook data-exploration.ipynb](data-exploration.ipynb).
 Provided data samples are 3 images(center, left and right camera) for every steering angle, the majority of are with 0 steering angle which means if the data used without augmentation that would lead the model to overfit and may lead the model to be trained to output a 0 angle, but I think the goal is to train the model how to permanently correct the car to be within the track not to be biased to give 0 angle output.
 
 ![alt text](Udacity_data.png)
@@ -36,7 +36,7 @@ Provided data samples are 3 images(center, left and right camera) for every stee
 Data processing done into a generator (keras fit_generator) to allow real time processing of the data generating thousands of them while not loading all of them into memory. Inside the generation function I avoided the samples with zero angle.
 
 ### Data augmentation techniques used:
-[Data visualization is available in the notebook data-exploration.ipynb]().
+[Data visualization is available in the notebook data-exploration.ipynb](data-exploration.ipynb).
 
 ### 1- Flipping
 Choosing randomly an image, flipping it and changing the sign of the predicted angle to simulate driving in the opposite direction.
