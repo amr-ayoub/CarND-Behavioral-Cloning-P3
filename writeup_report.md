@@ -79,6 +79,9 @@ For track 2, model passed the first 9 turns until the very tight right turn so I
 
 [![Alt text](https://img.youtube.com/vi/CfLo5hfHdxs/0.jpg)](https://www.youtube.com/watch?v=CfLo5hfHdxs)
 
+[Embedded Youtube video for testing on track 1](https://www.youtube.com/watch?v=CfLo5hfHdxs)
+
+
 ## Conclusion
 The NN model was able to learn by cloning human behaviour to drive on the same track it has been trained on, and also has a good degree of generalization to pass big part of a new track. Though the model only controls the steering angle, I strongly believe that it is not enough and it also has to control the throttle and the brake so it can drive with better performance on general tracks once it has been already taught the general rules of driving.
 
