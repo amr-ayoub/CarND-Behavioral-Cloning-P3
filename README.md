@@ -35,7 +35,8 @@ Provided data samples are 3 images(center, left and right camera) for every stee
 
 Data processing done into a generator (keras fit_generator) to allow real time processing of the data generating thousands of them while not needed to load all of them into memory. Inside the generation function I avoided the samples with zero angle for the purpose explained above.
 
-![alt text](original_sample.png)
+#### Original training sample 3 cameras images with steering angle on the top:
+![alt text](original_sample.png) 
 
 ### Data augmentation techniques used:
 [Data visualization is available in the notebook data-exploration.ipynb](data-exploration.ipynb).
