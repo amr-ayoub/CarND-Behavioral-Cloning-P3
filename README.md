@@ -35,26 +35,37 @@ Provided data samples are 3 images(center, left and right camera) for every stee
 
 Data processing done into a generator (keras fit_generator) to allow real time processing of the data generating thousands of them while not needed to load all of them into memory. Inside the generation function I avoided the samples with zero angle for the purpose explained above.
 
+![alt text](original_sample.png)
+
 ### Data augmentation techniques used:
 [Data visualization is available in the notebook data-exploration.ipynb](data-exploration.ipynb).
 
 ### 1- Flipping
 Choosing randomly an image, flipping it and changing the sign of the predicted angle to simulate driving in the opposite direction.
 
+![alt text](flipped_sample.png)
+
 ### 2- Brightness augmentation
 To help training the model to different day and night driving with different bightness parts of the track, I added images with different brightness by converting them first to HSV, randomly scaling up/down the V channel.
+
+![alt text](bright_sample.png)
 
 ### 3- Horizontal and vertical shifts
 To compensate for the translation in the steering angles and being in different horizontal positions on the track, the generator randomly chooses image, do a horizontal shift then adds an offset to the steering angle corresponding to that.
 
 Also vertical shift done to simulate driving up or down the slope of the track.
 
+![alt text](shifted_sample.png)
+
 ### 4- Using left and right camera images
 Choosing randomly left and right images, adding a small angle .3 to the left camera and subtract a small angle of 0.3 from the right camera. That will help to teach the model to correct the car to move from the left and right to the center of the track.
+
+![alt text](left_right_camera_sample.png)
 
 ###  Preprocessing
 Model feeded with cropped sample images to not feed it with unused features like the horizon and the car’s hood, then resize them to 64x64 pixels square images. Input images were split to HSV planes before been passed to the trained network.
 
+![alt text](cropped_resized_sample.png)
 
 ## Model
 Model architecture is built on NVIDIA’s model implemented in keras with Tensorflow backend. The model consists of 9 layers: a normalization layer, 5 convolutional layers and 3 fully connected layers. Converse to the Nvidia model, input image was 64x64 pixels square image (HSV planes). Dropout 0.5 has been added after every layer to avoid overfitting and make the model general enough with driving rules. An Adam optimizer was used for optimization and ELU for activation functions.
